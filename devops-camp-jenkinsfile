@@ -48,10 +48,6 @@ pipeline {
                     }
                 }
             }
-
-
-
-
         }
         stage('Database docker build') {
             steps {
@@ -65,11 +61,8 @@ pipeline {
                         }
                     }
                 }
-
-
             }  
-
-            post {
+           post {
                 always {
                     echo "Clean local $DB_IMAGE_NAME image"
                     script {
@@ -80,8 +73,7 @@ pipeline {
                             echo err.getMessage()
                         }
                     }
-               }
-      
+               }  
         }
         stage('Test'){
             steps {
@@ -101,5 +93,4 @@ pipeline {
         }
     }
 }
-      
-} 
+ 
