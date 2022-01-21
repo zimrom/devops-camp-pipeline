@@ -10,7 +10,7 @@ pipeline {
     }
     stages {
         //TODO: add stages to pipeline
-        stage('Application repository') {i
+        stage('Application repository') {
             steps {
                 echo "Cloning application repository"
                 sh 'git clone https://github.com/zimrom/afs-labs-student.git'
