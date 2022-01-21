@@ -8,8 +8,6 @@ pipeline {
         HARBOR_PROJECT = 'keithrbeggs-harbor-project'
         DB_IMAGE_NAME = 'db'
     }
-
-
     stages {
         //TODO: add stages to pipeline
         stage('Application repository') {i
@@ -25,12 +23,9 @@ pipeline {
                     script {
                         env.BUILD_DB = sh(script: 'python check_harbor_db.py -h $COMMIT_HASH -i $DB_IMAGE_NAME -r $HARBOR_REGISTRY -p $HARBOR_PROJECT -c ${USERNAME}:${PASSWORD}', returnStdout: true).trim()
                     }
-                
-
-
-            }
-        }
-    }
+                }
+             }
+         }
         stage('DB changes: true') {
            when {
               environment name: 'BUILD_DB', value: 'true'
@@ -69,15 +64,12 @@ pipeline {
                   steps {
                       echo "Deployment stage"
                       //TODO: deploy database
-                      sh 'kubectl -n kbeggs set image deployment/db-deployment db-deployment=$HARBOR_REGISTRY/$HARBOR_PROJECT/$DB_IMAGE_NAME:$COMMIT_HASH-$PIPELINE_HASH'
+                      sh 'kubectl -n kbeggs set image deployment/db-deployment db-deployment=$HARBOR_REGISTRY/$HARBOR_PROJECT/$DB_IMAGE_NAME:$COMMIT_HASH-$iPIPELINE_HASH'
                   }
               }
            }
         }
-
-
-
-
+    }
     post {
         cleanup {
             echo "Clean workspace"
